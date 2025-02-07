@@ -1,0 +1,24 @@
+[
+    {
+      "id": 1,
+      "name": "Яблоко",
+      "description": "Свежее, сочное яблоко.",
+      "image": "https://via.placeholder.com/150?text=Яблоко",
+      "price": "50 руб."
+    },
+    {
+      "id": 2,
+      "name": "Банан",
+      "description": "Спелый банан высокого качества.",
+      "image": "https://via.placeholder.com/150?text=Банан",
+      "price": "70 руб."
+    },
+    {
+      "id": 3,
+      "name": "Апельсин",
+      "description": "Сочный апельсин, богат витамином C.",
+      "image": "https://via.placeholder.com/150?text=Апельсин",
+      "price": "60 руб."
+    }
+  ]
+  
