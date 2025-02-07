@@ -1,24 +1,32 @@
 [
-    {
-      "id": 1,
-      "name": "Яблоко",
-      "description": "Свежее, сочное яблоко.",
-      "image": "https://via.placeholder.com/150?text=Яблоко",
-      "price": "50 руб."
-    },
-    {
-      "id": 2,
-      "name": "Банан",
-      "description": "Спелый банан высокого качества.",
-      "image": "https://via.placeholder.com/150?text=Банан",
-      "price": "70 руб."
-    },
-    {
-      "id": 3,
-      "name": "Апельсин",
-      "description": "Сочный апельсин, богат витамином C.",
-      "image": "https://via.placeholder.com/150?text=Апельсин",
-      "price": "60 руб."
-    }
-  ]
-  
+  { "id": 1, "name": "Яблоко", "description": "Свежее яблоко.", "image": "images/apple.jpg", "price": "50 руб." },
+  { "id": 2, "name": "Банан", "description": "Спелый банан.", "image": "images/banana.jpg", "price": "70 руб." },
+  { "id": 3, "name": "Апельсин", "description": "Сочный апельсин.", "image": "images/orange.jpg", "price": "60 руб." },
+  { "id": 4, "name": "Груша", "description": "Сочная груша.", "image": "images/pear.jpg", "price": "55 руб." },
+  { "id": 5, "name": "Виноград", "description": "Свежий виноград.", "image": "images/grapes.jpg", "price": "80 руб." },
+  { "id": 6, "name": "Киви", "description": "Кисло-сладкий киви.", "image": "images/kiwi.jpg", "price": "90 руб." },
+  { "id": 7, "name": "Манго", "description": "Экзотическое манго.", "image": "images/mango.jpg", "price": "120 руб." },
+  { "id": 8, "name": "Лимон", "description": "Освежающий лимон.", "image": "images/lemon.jpg", "price": "40 руб." },
+  { "id": 9, "name": "Папайя", "description": "Сладкая папайя.", "image": "images/papaya.jpg", "price": "110 руб." },
+  { "id": 10, "name": "Грейпфрут", "description": "Горько-сладкий грейпфрут.", "image": "images/grapefruit.jpg", "price": "100 руб." },
+  { "id": 11, "name": "Мандарин", "description": "Ароматный мандарин.", "image": "images/mandarin.jpg", "price": "65 руб." },
+  { "id": 12, "name": "Персик", "description": "Сочный персик.", "image": "images/peach.jpg", "price": "85 руб." },
+  { "id": 13, "name": "Абрикос", "description": "Нежный абрикос.", "image": "images/apricot.jpg", "price": "75 руб." },
+  { "id": 14, "name": "Слива", "description": "Спелая слива.", "image": "images/plum.jpg", "price": "70 руб." },
+  { "id": 15, "name": "Вишня", "description": "Сладкая вишня.", "image": "images/cherry.jpg", "price": "95 руб." },
+  { "id": 16, "name": "Арбуз", "description": "Большой арбуз.", "image": "images/watermelon.jpg", "price": "150 руб." },
+  { "id": 17, "name": "Дыня", "description": "Сочная дыня.", "image": "images/melon.jpg", "price": "140 руб." },
+  { "id": 18, "name": "Черника", "description": "Полезная черника.", "image": "images/blueberry.jpg", "price": "130 руб." },
+  { "id": 19, "name": "Малина", "description": "Ароматная малина.", "image": "images/raspberry.jpg", "price": "120 руб." },
+  { "id": 20, "name": "Клубника", "description": "Сочная клубника.", "image": "images/strawberry.jpg", "price": "110 руб." },
+  { "id": 21, "name": "Пина Колада", "description": "Экзотический коктейль.", "image": "images/pina.jpg", "price": "200 руб." },
+  { "id": 22, "name": "Смузи", "description": "Свежий фруктовый смузи.", "image": "images/smoothie.jpg", "price": "150 руб." },
+  { "id": 23, "name": "Асаи", "description": "Популярный асаи.", "image": "images/acai.jpg", "price": "170 руб." },
+  { "id": 24, "name": "Кокос", "description": "Свежий кокос.", "image": "images/coconut.jpg", "price": "130 руб." },
+  { "id": 25, "name": "Лайм", "description": "Кисло-сладкий лайм.", "image": "images/lime.jpg", "price": "50 руб." },
+  { "id": 26, "name": "Гранат", "description": "Полезный гранат.", "image": "images/pomegranate.jpg", "price": "160 руб." },
+  { "id": 27, "name": "Фейхоа", "description": "Экзотический фейхоа.", "image": "images/feijoa.jpg", "price": "140 руб." },
+  { "id": 28, "name": "Дуриан", "description": "Экзотический дуриан.", "image": "images/durian.jpg", "price": "220 руб." },
+  { "id": 29, "name": "Рамбутан", "description": "Экзотический рамбутан.", "image": "images/rambutan.jpg", "price": "190 руб." },
+  { "id": 30, "name": "Личи", "description": "Ароматное личи.", "image": "images/lychee.jpg", "price": "180 руб." }
+]
