@@ -12,17 +12,14 @@
     <div class="menu-icon" id="menu-btn">
       ☰
     </div>
-
     <div class="search-bar">
       <input type="text" placeholder="Поиск">
       <button class="search-btn">🔍</button>
     </div>
     <div class="auth">
-      <!-- Иконка авторизации -->
       <span>👤</span>
     </div>
     <div class="settings">
-      <!-- Иконка настроек -->
       <span>⚙️</span>
     </div>
   </header>
@@ -40,23 +37,39 @@
   <!-- Основной контент -->
   <main>
     <section class="product-grid">
-      
-     
-      </article>
-      <!-- Здесь можно добавить другие карточки товаров -->
+      <!-- Карточки товаров динамически добавляются здесь -->
     </section>
   </main>
 
   <!-- Пагинация -->
   <footer>
     <div class="pagination">
-      <span class="page active">1</span>
-      <span class="page">2</span>
-      <span class="page">3</span>
-      <span class="page">4</span>
-      <span class="page">5</span>
+      <!-- Кнопки пагинации создаются динамически -->
     </div>
   </footer>
+
+  <!-- Модальное окно для отзывов -->
+  <div id="reviews-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Отзывы</h2>
+      <div class="reviews-container">
+        <div class="review">
+          <p>"Отличный продукт, рекомендую!"</p>
+          <p>Оценка: 5/5</p>
+        </div>
+        <div class="review">
+          <p>"Нормально, но есть мелкие недочёты."</p>
+          <p>Оценка: 3/5</p>
+        </div>
+        <div class="review">
+          <p>"Не оправдал ожиданий, качество оставляет желать лучшего."</p>
+          <p>Оценка: 2/5</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="js/script.js"></script>
 </body>
 </html>
