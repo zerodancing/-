@@ -30,7 +30,7 @@ function renderProducts(products, page = 1) {
     productGrid.appendChild(productCard);
   });
   
-  attachProductEventListeners(); // После отрисовки карточек добавляем обработчики событий
+  attachProductEventListeners(); // Добавляем обработчики событий к кнопкам
 }
 
 // Функция для создания и отрисовки элементов пагинации
@@ -56,7 +56,7 @@ function renderPagination(products) {
   }
 }
 
-// Функция для обновления выделения активной страницы в пагинации
+// Функция для обновления активной кнопки пагинации
 function updateActivePagination() {
   document.querySelectorAll('.pagination .page').forEach(btn => btn.classList.remove('active'));
   const pages = document.querySelectorAll('.pagination .page');
@@ -71,17 +71,24 @@ function attachProductEventListeners() {
     button.addEventListener('click', function() {
       const productId = this.dataset.id;
       console.log("Добавлен в корзину товар с id: " + productId);
-      // Здесь можно реализовать добавление товара в корзину
+      // Здесь можно реализовать логику добавления товара в корзину
     });
   });
   
   document.querySelectorAll('.reviews').forEach(button => {
     button.addEventListener('click', function() {
       const productId = this.dataset.id;
-      alert("Показать отзывы для товара с id: " + productId);
-      // Здесь можно реализовать открытие модального окна с отзывами
+      openReviewsModal(productId);
     });
   });
+}
+
+// Функция для открытия модального окна с отзывами
+function openReviewsModal(productId) {
+  // Здесь можно динамически менять содержимое модального окна в зависимости от товара.
+  // Пока используем статичные отзывы.
+  const modal = document.getElementById('reviews-modal');
+  modal.style.display = 'block';
 }
 
 // Загрузка товаров из JSON файла и инициализация страницы
@@ -106,19 +113,33 @@ document.querySelector('.search-bar input').addEventListener('input', function(e
   renderPagination(filteredProducts);
 });
 
-// Реализация функциональности бокового меню
+// Обработчики для бокового меню и модального окна
 document.addEventListener("DOMContentLoaded", function () {
+  // Боковое меню
   const menuBtn = document.getElementById("menu-btn");
   const sidebar = document.getElementById("sidebar");
 
   menuBtn.addEventListener("click", function () {
-    sidebar.classList.toggle("active"); // Переключаем класс "active" для бокового меню
+    sidebar.classList.toggle("active");
   });
 
-  // Закрытие меню при клике вне его области
   document.addEventListener("click", function (event) {
     if (!sidebar.contains(event.target) && !menuBtn.contains(event.target)) {
       sidebar.classList.remove("active");
+    }
+  });
+
+  // Закрытие модального окна при клике на кнопку "close"
+  const modal = document.getElementById('reviews-modal');
+  const closeBtn = modal.querySelector('.close');
+  closeBtn.addEventListener('click', function() {
+    modal.style.display = 'none';
+  });
+
+  // Закрытие модального окна при клике вне модального контента
+  window.addEventListener('click', function(event) {
+    if (event.target === modal) {
+      modal.style.display = 'none';
     }
   });
 });
