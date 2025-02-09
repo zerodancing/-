@@ -48,27 +48,35 @@
     </div>
   </footer>
 
-  <!-- Модальное окно для отзывов -->
-  <div id="reviews-modal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Отзывы</h2>
-      <div class="reviews-container">
-        <div class="review">
-          <p>"Отличный продукт, рекомендую!"</p>
-          <p>Оценка: 5/5</p>
-        </div>
-        <div class="review">
-          <p>"Нормально, но есть мелкие недочёты."</p>
-          <p>Оценка: 3/5</p>
-        </div>
-        <div class="review">
-          <p>"Не оправдал ожиданий, качество оставляет желать лучшего."</p>
-          <p>Оценка: 2/5</p>
-        </div>
-      </div>
+  <!-- Модальное окно для отзывов (новая версия) -->
+<div id="reviews-modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Отзывы</h2>
+    <!-- Блок для отображения средней оценки -->
+    <div id="average-rating" class="average-rating"></div>
+    <!-- Список отзывов -->
+    <div id="reviews-list" class="reviews-list">
+      <!-- Отзывы будут динамически добавляться сюда -->
     </div>
+    <!-- Форма для добавления нового отзыва -->
+    <form id="review-form" data-rating="0">
+      <h3>Добавить отзыв</h3>
+      <label for="review-text">Ваш отзыв:</label>
+      <textarea id="review-text" placeholder="Напишите ваш отзыв"></textarea>
+      <label>Ваша оценка:</label>
+      <div id="star-rating-input" class="star-rating-input">
+        <span data-value="1" class="star">&#9734;</span>
+        <span data-value="2" class="star">&#9734;</span>
+        <span data-value="3" class="star">&#9734;</span>
+        <span data-value="4" class="star">&#9734;</span>
+        <span data-value="5" class="star">&#9734;</span>
+      </div>
+      <button type="submit">Отправить отзыв</button>
+    </form>
   </div>
+</div>
+
 
   <script src="js/script.js"></script>
 </body>
