@@ -48,21 +48,24 @@
     </div>
   </footer>
 
-  <!-- Модальное окно для отзывов (новая версия) -->
+ <!-- Модальное окно для отзывов (новая версия) -->
 <div id="reviews-modal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
+    <!-- Заголовок, который будет обновляться: например, "Отзывы для «Банан»" -->
     <h2>Отзывы</h2>
     <!-- Блок для отображения средней оценки -->
     <div id="average-rating" class="average-rating"></div>
     <!-- Список отзывов -->
     <div id="reviews-list" class="reviews-list">
-      <!-- Отзывы будут динамически добавляться сюда -->
+      <!-- Отзывы будут подгружаться динамически -->
     </div>
     <!-- Форма для добавления нового отзыва -->
     <form id="review-form" data-rating="0">
       <h3>Добавить отзыв</h3>
-      <label for="review-text">Ваш отзыв:</label>
+      <!-- Поле для ввода имени (если пользователь не введёт — можно подставить случайное имя) -->
+      <input type="text" id="review-username" placeholder="Ваше имя">
+      <!-- Поле для ввода текста отзыва -->
       <textarea id="review-text" placeholder="Напишите ваш отзыв"></textarea>
       <label>Ваша оценка:</label>
       <div id="star-rating-input" class="star-rating-input">
@@ -78,6 +81,8 @@
 </div>
 
 
-  <script src="js/script.js"></script>
+
+  <script src="js/main.js"></script>
+  <script src="js/reviews.js"></script>
 </body>
 </html>
