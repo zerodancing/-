@@ -1,22 +1,31 @@
+/* === Общие настройки шрифтов и базовых стилей === */
 :root {
   --primary-color: #4CAF50;
   --primary-color-hover: #45a049;
+  --secondary-color: #007BFF;
   --modal-bg: #ffffff;
   --bg-color: #f7f7f7;
   --text-color: #333;
   --border-color: #ddd;
 }
 
-/* Базовые стили для body */
 body {
-  font-family: 'Roboto', sans-serif; /* подключите шрифт через Google Fonts, если хотите */
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
   background-color: var(--bg-color);
   color: var(--text-color);
   margin: 0;
   padding: 0;
 }
 
-/* Современные стили для шапки сайта */
+/* Используем другой шрифт для заголовков */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+
+/* === Шапка сайта === */
 header {
   display: flex;
   justify-content: space-between;
@@ -27,6 +36,7 @@ header {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Иконки шапки */
 .menu-icon,
 .auth,
 .settings {
@@ -34,7 +44,7 @@ header {
   font-size: 24px;
 }
 
-/* Стили для поля поиска */
+/* Поле поиска */
 .search-bar {
   display: flex;
   align-items: center;
@@ -45,6 +55,7 @@ header {
   border: none;
   border-radius: 3px 0 0 3px;
   outline: none;
+  font-size: 16px;
 }
 
 .search-btn {
@@ -52,9 +63,10 @@ header {
   border: none;
   border-radius: 0 3px 3px 0;
   cursor: pointer;
+  font-size: 16px;
 }
 
-/* Стили для карточек товаров */
+/* === Карточки товаров === */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -70,6 +82,9 @@ header {
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   transition: transform 0.2s ease;
+  /* Добавляем flex-контейнер и вертикальное расположение элементов */
+  display: flex;
+  flex-direction: column;
 }
 
 .product-card:hover {
@@ -79,9 +94,59 @@ header {
 .product-card img {
   max-width: 100%;
   border-radius: 5px;
+  margin-bottom: 10px;
 }
 
-/* Пагинация */
+.product-card h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.product-card p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* === Кнопки «В корзину» и «Отзывы» (улучшенная версия) === */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.actions button {
+  flex: 1;
+  padding: 12px 24px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Кнопка "В корзину" */
+.actions button.add-to-cart {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+/* Кнопка "Отзывы" */
+.actions button.reviews {
+  background-color: var(--secondary-color);
+  color: #fff;
+}
+
+/* Эффекты при наведении и клике */
+.actions button:hover {
+  transform: scale(1.05);
+}
+
+.actions button:active {
+  transform: scale(0.98);
+}
+
+/* === Пагинация === */
 .pagination {
   display: flex;
   justify-content: center;
@@ -95,6 +160,7 @@ header {
   cursor: pointer;
   border-radius: 3px;
   transition: background-color 0.2s ease;
+  font-size: 16px;
 }
 
 .pagination .page.active {
@@ -103,7 +169,7 @@ header {
   border-color: var(--primary-color);
 }
 
-/* Боковое меню */
+/* === Боковое меню === */
 #sidebar {
   position: fixed;
   top: 0;
@@ -133,14 +199,15 @@ header {
 #sidebar ul li a {
   color: #fff;
   text-decoration: none;
+  font-size: 18px;
 }
 
-/* Стили для крестика закрытия меню */
+/* Улучшенный крестик закрытия меню */
 .close-menu {
   position: absolute;
   top: 10px;
   right: 15px;
-  font-size: 28px;
+  font-size: 32px;
   cursor: pointer;
   color: #fff;
   transition: color 0.2s ease;
@@ -148,4 +215,13 @@ header {
 
 .close-menu:hover {
   color: #ccc;
+}
+
+/* Контейнер с кнопками должен всегда располагаться внизу карточки */
+.product-card .actions {
+  margin-top: auto; /* Отодвигаем кнопки вниз */
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: auto;
 }
