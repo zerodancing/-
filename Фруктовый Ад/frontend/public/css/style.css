@@ -19,7 +19,7 @@ body {
   padding: 0;
 }
 
-/* Используем другой шрифт для заголовков */
+/* Заголовки */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
@@ -36,7 +36,6 @@ header {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Иконки шапки */
 .menu-icon,
 .auth,
 .settings {
@@ -82,7 +81,6 @@ header {
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   transition: transform 0.2s ease;
-  /* Добавляем flex-контейнер и вертикальное расположение элементов */
   display: flex;
   flex-direction: column;
 }
@@ -107,7 +105,7 @@ header {
   margin-bottom: 10px;
 }
 
-/* === Кнопки «В корзину» и «Отзывы» (улучшенная версия) === */
+/* === Кнопки «В корзину» и «Отзывы» === */
 .actions {
   display: flex;
   justify-content: center;
@@ -125,25 +123,27 @@ header {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Кнопка "В корзину" */
 .actions button.add-to-cart {
   background-color: var(--primary-color);
   color: #fff;
 }
 
-/* Кнопка "Отзывы" */
 .actions button.reviews {
   background-color: var(--secondary-color);
   color: #fff;
 }
 
-/* Эффекты при наведении и клике */
 .actions button:hover {
   transform: scale(1.05);
 }
 
 .actions button:active {
   transform: scale(0.98);
+}
+
+/* Обеспечиваем, чтобы кнопки всегда располагались внизу карточки */
+.product-card .actions {
+  margin-top: auto;
 }
 
 /* === Пагинация === */
@@ -202,7 +202,7 @@ header {
   font-size: 18px;
 }
 
-/* Улучшенный крестик закрытия меню */
+/* Крестик закрытия меню */
 .close-menu {
   position: absolute;
   top: 10px;
@@ -215,13 +215,4 @@ header {
 
 .close-menu:hover {
   color: #ccc;
-}
-
-/* Контейнер с кнопками должен всегда располагаться внизу карточки */
-.product-card .actions {
-  margin-top: auto; /* Отодвигаем кнопки вниз */
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: auto;
 }
