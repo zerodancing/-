@@ -6,25 +6,26 @@
   <title>Фруктовый Ад</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/reviews.css">
+  <link rel="stylesheet" href="css/search.css">
+  <link rel="stylesheet" href="css/settings.css">
+  <link rel="stylesheet" href="css/demonic.css">
 </head>
 <body>
   <!-- Шапка сайта (header) -->
   <header>
-    <div class="menu-icon" id="menu-btn">
-      ☰
+    <div class="menu-icon" id="menu-btn">☰</div>
+    <div class="site-logo">
+      <img id="site-logo" src="images/logo_ru.png" alt="Фруктовый Ад" style="height: 40px;">
     </div>
-    <div class="search-bar">
+    <div class="search-bar" style="position: relative;">
       <input type="text" placeholder="Поиск">
       <button class="search-btn">🔍</button>
+      <!-- Контейнер для подсказок поиска -->
+      <div id="search-suggestions"></div>
     </div>
-    <div class="auth">
-      <span>👤</span>
-    </div>
-    <div class="settings">
-      <span>⚙️</span>
-    </div>
+    <div class="auth"><span>👤</span></div>
+    <div class="settings"><span>⚙️</span></div>
   </header>
-
   <!-- Боковое меню -->
   <nav id="sidebar">
     <span class="close-menu">&times;</span>
@@ -82,9 +83,35 @@
   </div>
 </div>
 
+<!-- Модальное окно настроек -->
+<div id="settings-modal" class="settings-modal">
+  <div class="settings-content">
+    <span class="close-settings">&times;</span>
+    <h2>Настройки</h2>
+    <div class="setting-option">
+      <label for="language-select">Язык:</label>
+      <select id="language-select">
+        <option value="ru">Русский</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+    <div class="setting-option">
+      <label for="theme-select">Тема:</label>
+      <select id="theme-select">
+        <option value="standard">Стандартная</option>
+        <option value="demonic">Демоническая</option>
+      </select>
+    </div>
+  </div>
+</div>
 
+<!-- Элемент нотификации (будет показываться при добавлении в корзину) -->
+<div id="notification" class="notification"></div>
 
   <script src="js/main.js"></script>
+  <script src="js/search.js"></script>
   <script src="js/reviews.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/language.js"></script>
 </body>
 </html>
