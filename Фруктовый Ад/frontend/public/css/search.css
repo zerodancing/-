@@ -1,0 +1,43 @@
+/* css/search.css */
+
+/* Стили для контейнера подсказок поиска */
+#search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+    color: var(--text-color);
+    font-size: 16px;
+    padding: 0;
+  }
+  
+  /* Сброс стилей списка */
+  #search-suggestions ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Стили для каждого элемента подсказки */
+  #search-suggestions li {
+    padding: 8px;
+    cursor: pointer;
+    color: var(--text-color);
+  }
+  
+  /* При наведении элемент подсказки меняет фон */
+  #search-suggestions li:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Стиль для выделенной подсказки */
+  #search-suggestions li.highlighted {
+    background-color: #e0e0e0;
+  }
+  
