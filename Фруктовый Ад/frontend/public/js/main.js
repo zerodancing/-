@@ -1,3 +1,4 @@
+// js/main.js
 const productsPerPage = 24;
 let currentPage = 1;
 let allProducts = [];
@@ -7,44 +8,42 @@ let filteredProducts = [];
 const conversionRate = 0.013;
 
 /**
- * Функция для отрисовки товаров на странице с учетом выбранного языка.
- * Если язык 'en', то цена конвертируется из рублей в доллары.
+ * Отрисовка товаров с учётом текущего языка.
  */
 function renderProducts(products, page = 1) {
   const productGrid = document.querySelector('.product-grid');
-  productGrid.innerHTML = ''; // Очистка содержимого
+  productGrid.innerHTML = '';
 
   const startIndex = (page - 1) * productsPerPage;
   const productsToShow = products.slice(startIndex, page * productsPerPage);
 
-  // Получаем текущий язык из атрибута data-lang у body, по умолчанию 'ru'
-  const lang = document.body.getAttribute('data-lang') || 'ru';
+  const lang = LanguageManager.getCurrentLanguage();
 
   productsToShow.forEach(product => {
     const productCard = document.createElement('article');
     productCard.classList.add('product-card');
     
-    // Обработка цены в зависимости от языка
     let priceDisplay;
     if (lang === 'en') {
-      // Предполагаем, что product.price имеет формат "50 руб."
       const rub = parseFloat(product.price);
       const dollars = (rub * conversionRate).toFixed(2);
-      priceDisplay = `Price: $${dollars}`;
+      priceDisplay = `${LanguageManager.getTranslation('main', 'priceLabel')} $${dollars}`;
     } else {
-      priceDisplay = `Цена: ${product.price}`;
+      priceDisplay = `${LanguageManager.getTranslation('main', 'priceLabel')} ${product.price}`;
     }
     
     productCard.innerHTML = `
-      <img src="${product.image}" alt="${product.name}">
-      <h2>${product.name}</h2>
-      <p>${product.description}</p>
-      <p class="price">${priceDisplay}</p>
-      <div class="actions">
-        <button class="add-to-cart" data-id="${product.id}">В корзину</button>
-        <button class="reviews" data-id="${product.id}" data-name="${product.name}">Отзывы</button>
-      </div>
-    `;
+  <img src="${product.image}" alt="${product.name}">
+  <h2>${product.name}</h2>
+  <p>${product.description}</p>
+  <p class="price">${priceDisplay}</p>
+  <div class="actions">
+    <button class="add-to-cart" data-id="${product.id}">${LanguageManager.getTranslation('main', 'addToCart')}</button>
+    <button class="reviews" data-id="${product.id}" data-name="${product.name}">
+      ${LanguageManager.getTranslation('main', 'reviews')}
+    </button>
+  </div>
+`;
     productGrid.appendChild(productCard);
   });
   
@@ -52,11 +51,11 @@ function renderProducts(products, page = 1) {
 }
 
 /**
- * Функция для создания и отрисовки элементов пагинации.
+ * Отрисовка элементов пагинации.
  */
 function renderPagination(products) {
   const paginationContainer = document.querySelector('.pagination');
-  paginationContainer.innerHTML = ''; // Очистка пагинации
+  paginationContainer.innerHTML = '';
 
   const totalPages = Math.ceil(products.length / productsPerPage);
 
@@ -76,9 +75,6 @@ function renderPagination(products) {
   }
 }
 
-/**
- * Функция для обновления активной кнопки пагинации.
- */
 function updateActivePagination() {
   document.querySelectorAll('.pagination .page').forEach(btn => btn.classList.remove('active'));
   const pages = document.querySelectorAll('.pagination .page');
@@ -87,15 +83,12 @@ function updateActivePagination() {
   }
 }
 
-/**
- * Функция для добавления обработчиков событий к кнопкам в карточках товаров.
- */
 function attachProductEventListeners() {
   document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', function() {
       const productId = this.dataset.id;
       console.log("Добавлен в корзину товар с id: " + productId);
-      // Здесь можно реализовать логику добавления товара в корзину
+      // Реализуйте логику добавления в корзину
     });
   });
   
@@ -109,20 +102,30 @@ function attachProductEventListeners() {
 }
 
 /**
- * Функция для открытия модального окна с отзывами.
+ * Загрузка товаров с учётом выбранного языка.
  */
-function openReviewsModal(productId, productName) {
-  const modal = document.getElementById('reviews-modal');
-  modal.style.display = 'block';
-  // Здесь можно добавить обновление заголовка модального окна в зависимости от товара
+function loadProductsForLanguage(lang) {
+  const file = lang === 'en' ? 'data/products_en.json' : 'data/products.json';
+  fetch(file)
+    .then(response => response.json())
+    .then(products => {
+      allProducts = products;
+      filteredProducts = products;
+      currentPage = 1;
+      renderProducts(filteredProducts, currentPage);
+      renderPagination(filteredProducts);
+    })
+    .catch(error => {
+      console.error('Ошибка при загрузке товаров:', error);
+    });
 }
 
-// Загрузка товаров из JSON файла и инициализация страницы
+// Загрузка товаров при инициализации
 fetch('data/products.json')
   .then(response => response.json())
   .then(products => {
     allProducts = products;
-    filteredProducts = products; // Изначально выводим все товары
+    filteredProducts = products;
     renderProducts(filteredProducts, currentPage);
     renderPagination(filteredProducts);
   })
@@ -130,9 +133,8 @@ fetch('data/products.json')
     console.error('Ошибка при загрузке товаров:', error);
   });
 
-// Обработчики для бокового меню и модального окна
+// Обработчики бокового меню и модальных окон
 document.addEventListener("DOMContentLoaded", function () {
-  // Боковое меню
   const menuBtn = document.getElementById("menu-btn");
   const sidebar = document.getElementById("sidebar");
   const closeMenuBtn = document.querySelector("#sidebar .close-menu");
@@ -151,14 +153,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Закрытие модального окна при клике на кнопку "close"
   const modal = document.getElementById('reviews-modal');
   const closeBtn = modal.querySelector('.close');
   closeBtn.addEventListener('click', function() {
     modal.style.display = 'none';
   });
 
-  // Закрытие модального окна при клике вне модального контента
   window.addEventListener('click', function(event) {
     if (event.target === modal) {
       modal.style.display = 'none';
