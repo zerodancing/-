@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Фруктовый Ад</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/reviews.css">
-  <link rel="stylesheet" href="css/search.css">
-  <link rel="stylesheet" href="css/settings.css">
-  <link rel="stylesheet" href="css/demonic.css">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/reviews.css" />
+  <link rel="stylesheet" href="css/search.css" />
+  <link rel="stylesheet" href="css/settings.css" />
+  <link rel="stylesheet" href="css/demonic.css" />
 </head>
-<body>
+<body data-lang="ru">
   <!-- Шапка сайта (header) -->
   <header>
     <div class="menu-icon" id="menu-btn">☰</div>
     <div class="site-logo">
-      <img id="site-logo" src="images/logo_ru.png" alt="Фруктовый Ад" style="height: 40px;">
+      <img id="site-logo" src="images/logo_ru.png" alt="Фруктовый Ад" style="height: 40px;" />
     </div>
     <div class="search-bar" style="position: relative;">
-      <input type="text" placeholder="Поиск">
+      <input type="text" placeholder="Поиск" />
       <button class="search-btn">🔍</button>
       <!-- Контейнер для подсказок поиска -->
       <div id="search-suggestions"></div>
@@ -26,21 +26,22 @@
     <div class="auth"><span>👤</span></div>
     <div class="settings"><span>⚙️</span></div>
   </header>
+
   <!-- Боковое меню -->
   <nav id="sidebar">
     <span class="close-menu">&times;</span>
     <ul>
-      <li><a href="index.html">Главная</a></li>
-      <li><a href="cart.html">Корзина</a></li>
-      <li><a href="about.html">О нас</a></li>
-      <li><a href="chat.html">Помощь</a></li>
+      <li><a href="index.html" data-translation="sidebar.home">Главная</a></li>
+      <li><a href="cart.html" data-translation="sidebar.cart">Корзина</a></li>
+      <li><a href="about.html" data-translation="sidebar.about">О нас</a></li>
+      <li><a href="chat.html" data-translation="sidebar.help">Помощь</a></li>
     </ul>
-  </nav>  
+  </nav>    
 
   <!-- Основной контент -->
   <main>
     <section class="product-grid">
-      <!-- Карточки товаров динамически добавляются здесь -->
+      <!-- Карточки товаров будут динамически добавляться здесь -->
     </section>
   </main>
 
@@ -51,67 +52,60 @@
     </div>
   </footer>
 
- <!-- Модальное окно для отзывов (новая версия) -->
-<div id="reviews-modal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <!-- Заголовок, который будет обновляться: например, "Отзывы для «Банан»" -->
-    <h2>Отзывы</h2>
-    <!-- Блок для отображения средней оценки -->
-    <div id="average-rating" class="average-rating"></div>
-    <!-- Список отзывов -->
-    <div id="reviews-list" class="reviews-list">
-      <!-- Отзывы будут подгружаться динамически -->
+  <!-- Модальное окно для отзывов -->
+  <div id="reviews-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Отзывы</h2>
+      <div id="average-rating" class="average-rating"></div>
+      <div id="reviews-list" class="reviews-list"></div>
+      <form id="review-form" data-rating="0">
+        <h3 data-translation="reviews.addReview">Добавить отзыв</h3>
+        <input type="text" id="review-username" placeholder="Ваше имя" />
+        <textarea id="review-text" placeholder="Напишите ваш отзыв"></textarea>
+        <label data-translation="reviews.yourRating">Ваша оценка:</label>
+        <div id="star-rating-input" class="star-rating-input">
+          <span data-value="1" class="star">&#9734;</span>
+          <span data-value="2" class="star">&#9734;</span>
+          <span data-value="3" class="star">&#9734;</span>
+          <span data-value="4" class="star">&#9734;</span>
+          <span data-value="5" class="star">&#9734;</span>
+        </div>
+        <button type="submit" data-translation="reviews.submitButton">Отправить отзыв</button>
+      </form>
     </div>
-    <!-- Форма для добавления нового отзыва -->
-    <form id="review-form" data-rating="0">
-      <h3>Добавить отзыв</h3>
-      <!-- Поле для ввода имени (если пользователь не введёт — можно подставить случайное имя) -->
-      <input type="text" id="review-username" placeholder="Ваше имя">
-      <!-- Поле для ввода текста отзыва -->
-      <textarea id="review-text" placeholder="Напишите ваш отзыв"></textarea>
-      <label>Ваша оценка:</label>
-      <div id="star-rating-input" class="star-rating-input">
-        <span data-value="1" class="star">&#9734;</span>
-        <span data-value="2" class="star">&#9734;</span>
-        <span data-value="3" class="star">&#9734;</span>
-        <span data-value="4" class="star">&#9734;</span>
-        <span data-value="5" class="star">&#9734;</span>
+  </div>
+
+  <!-- Модальное окно настроек -->
+  <div id="settings-modal" class="settings-modal">
+    <div class="settings-content">
+      <span class="close-settings">&times;</span>
+      <h2>Настройки</h2>
+      <div class="setting-option">
+        <label for="language-select">Язык:</label>
+        <select id="language-select">
+          <option value="ru">Русский</option>
+          <option value="en">English</option>
+        </select>
       </div>
-      <button type="submit">Отправить отзыв</button>
-    </form>
-  </div>
-</div>
-
-<!-- Модальное окно настроек -->
-<div id="settings-modal" class="settings-modal">
-  <div class="settings-content">
-    <span class="close-settings">&times;</span>
-    <h2>Настройки</h2>
-    <div class="setting-option">
-      <label for="language-select">Язык:</label>
-      <select id="language-select">
-        <option value="ru">Русский</option>
-        <option value="en">English</option>
-      </select>
-    </div>
-    <div class="setting-option">
-      <label for="theme-select">Тема:</label>
-      <select id="theme-select">
-        <option value="standard">Стандартная</option>
-        <option value="demonic">Демоническая</option>
-      </select>
+      <div class="setting-option">
+        <label for="theme-select">Тема:</label>
+        <select id="theme-select">
+          <option value="standard">Стандартная</option>
+          <option value="demonic">Демоническая</option>
+        </select>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- Элемент нотификации (будет показываться при добавлении в корзину) -->
-<div id="notification" class="notification"></div>
+  <!-- Нотификация -->
+  <div id="notification" class="notification"></div>
 
-  <script src="js/main.js"></script>
+  <!-- Скрипты: важно, чтобы language.js загружался первым -->
+  <script src="js/language.js"></script>
+  <script src="js/settings.js"></script>
   <script src="js/search.js"></script>
   <script src="js/reviews.js"></script>
-  <script src="js/settings.js"></script>
-  <script src="js/language.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
