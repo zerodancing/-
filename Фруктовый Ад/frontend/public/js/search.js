@@ -1,40 +1,31 @@
 // js/search.js
 
-// Глобальная переменная для текущего выделенного индекса в подсказках поиска
 let currentSuggestionIndex = -1;
 
-/**
- * Обновляет подсказки поиска.
- * Принимает введённую строку (query) и выводит до 5 подсказок, отсортированных так, чтобы товары,
- * название которых начинается с query, шли первыми.
- */
 function updateSearchSuggestions(query) {
   const suggestionsContainer = document.getElementById('search-suggestions');
   suggestionsContainer.innerHTML = '';
-  currentSuggestionIndex = -1; // Сброс выделения при новом запросе
+  currentSuggestionIndex = -1;
   if (!query) return;
-  
-  // Фильтруем товары, название которых содержит query
+
+  // Фильтрация и сортировка товаров
   let suggestions = allProducts.filter(product =>
     product.name.toLowerCase().includes(query)
   );
-  
-  // Сортируем: товары, начинающиеся с query, должны идти первыми
   suggestions.sort((a, b) => {
     const aStarts = a.name.toLowerCase().startsWith(query) ? 0 : 1;
     const bStarts = b.name.toLowerCase().startsWith(query) ? 0 : 1;
     if (aStarts !== bStarts) return aStarts - bStarts;
     return a.name.localeCompare(b.name);
   });
-  
-  suggestions = suggestions.slice(0, 5); // Ограничиваем до 5 подсказок
+  suggestions = suggestions.slice(0, 5);
   if (suggestions.length === 0) return;
-  
+
   const ul = document.createElement('ul');
   suggestions.forEach((product, index) => {
     const li = document.createElement('li');
     li.textContent = product.name;
-    li.dataset.index = index; // сохраняем индекс для навигации
+    li.dataset.index = index;
     li.addEventListener('click', () => {
       selectSuggestion(index, product.name);
     });
@@ -43,25 +34,14 @@ function updateSearchSuggestions(query) {
   suggestionsContainer.appendChild(ul);
 }
 
-/**
- * Выделяет подсказку с заданным индексом.
- */
 function highlightSuggestion(index) {
   const suggestionsContainer = document.getElementById('search-suggestions');
   const items = suggestionsContainer.querySelectorAll('li');
   items.forEach((item, i) => {
-    if (i === index) {
-      item.classList.add('highlighted');
-    } else {
-      item.classList.remove('highlighted');
-    }
+    item.classList.toggle('highlighted', i === index);
   });
 }
 
-/**
- * Обрабатывает выбор подсказки:
- * подставляет выбранное значение в поле поиска и запускает поиск.
- */
 function selectSuggestion(index, text) {
   const input = document.querySelector('.search-bar input');
   input.value = text;
@@ -69,19 +49,11 @@ function selectSuggestion(index, text) {
   performSearch(text.toLowerCase());
 }
 
-/**
- * Обработчик ввода в поле поиска – обновляет только подсказки.
- */
 document.querySelector('.search-bar input').addEventListener('input', function (e) {
   const query = e.target.value.toLowerCase();
   updateSearchSuggestions(query);
 });
 
-/**
- * Обработчик клавиатуры в поле поиска:
- * - Стрелки "вверх"/"вниз" перемещают выделение.
- * - Enter выбирает подсказку, если она выделена, или запускает поиск по введённому запросу.
- */
 document.querySelector('.search-bar input').addEventListener('keydown', function (e) {
   const suggestionsContainer = document.getElementById('search-suggestions');
   const items = suggestionsContainer.querySelectorAll('li');
@@ -104,23 +76,16 @@ document.querySelector('.search-bar input').addEventListener('keydown', function
       const selectedText = items[currentSuggestionIndex].textContent;
       selectSuggestion(currentSuggestionIndex, selectedText);
     } else {
-      const query = e.target.value.toLowerCase();
-      performSearch(query);
+      performSearch(e.target.value.toLowerCase());
     }
   }
 });
 
-/**
- * Обработчик клика по кнопке поиска.
- */
 document.querySelector('.search-btn').addEventListener('click', function () {
   const query = document.querySelector('.search-bar input').value.toLowerCase();
   performSearch(query);
 });
 
-/**
- * Функция для выполнения поиска: фильтрует товары и обновляет результаты.
- */
 function performSearch(query) {
   filteredProducts = allProducts.filter(product =>
     product.name.toLowerCase().includes(query)
@@ -129,3 +94,19 @@ function performSearch(query) {
   renderProducts(filteredProducts, currentPage);
   renderPagination(filteredProducts);
 }
+
+// При загрузке устанавливаем placeholder с переводом
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.querySelector('.search-bar input');
+  if (searchInput) {
+    searchInput.placeholder = LanguageManager.getTranslation('search', 'placeholder');
+  }
+});
+
+// Обновляем placeholder при смене языка
+document.addEventListener('languageChanged', function(e) {
+  const searchInput = document.querySelector('.search-bar input');
+  if (searchInput) {
+    searchInput.placeholder = LanguageManager.getTranslation('search', 'placeholder');
+  }
+});
