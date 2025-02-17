@@ -1,0 +1,62 @@
+/* Демоническая тема — переопределения CSS переменных и элементов */
+body.demonic {
+    --primary-color: #8B0000;  /* Темно-красный */
+    --primary-color-hover: #A52A2A;
+    --secondary-color: #550000;
+    --bg-color: #2C2C2C;
+    --text-color: #eee;        /* Светло-серый для лучшей читаемости */
+    --border-color: #555;
+  }
+  
+  /* Демоническая тема для шапки */
+  body.demonic header {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+  }
+  
+  /* Демоническая тема для карточек товаров */
+  body.demonic .product-card {
+    background-color: #3a3a3a;
+    border-color: var(--border-color);
+    color: var(--text-color);
+  }
+  
+  /* Демоническая тема для поля поиска */
+  body.demonic .search-bar input {
+    background-color: #555;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+  }
+  
+  /* Демоническая тема для бокового меню */
+  body.demonic #sidebar {
+    background-color: #444;
+  }
+  
+  /* Демоническая тема для модального окна настроек */
+  body.demonic .settings-modal {
+    background-color: #3a3a3a;
+    border-color: var(--border-color);
+  }
+  
+  /* Демоническая тема для пагинации */
+  body.demonic .pagination .page {
+    border-color: var(--border-color);
+    color: var(--text-color);
+  }
+  body.demonic .pagination .page.active {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+  }
+  
+  /* Демоническая тема для подсказок поиска */
+  body.demonic #search-suggestions {
+    background-color: #444;
+    border-color: var(--border-color);
+    color: var(--text-color);
+  }
+  body.demonic #search-suggestions li:hover,
+  body.demonic #search-suggestions li.highlighted {
+    background-color: #555;
+  }
+  
