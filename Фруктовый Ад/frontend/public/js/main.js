@@ -109,15 +109,6 @@ fetch('data/products.json')
     console.error('Ошибка при загрузке товаров:', error);
   });
 
-// Реализация функциональности поиска по названию товара
-document.querySelector('.search-bar input').addEventListener('input', function(e) {
-  const query = e.target.value.toLowerCase();
-  filteredProducts = allProducts.filter(product => product.name.toLowerCase().includes(query));
-  currentPage = 1; // Сброс текущей страницы при поиске
-  renderProducts(filteredProducts, currentPage);
-  renderPagination(filteredProducts);
-});
-
 // Обработчики для бокового меню и модального окна
 document.addEventListener("DOMContentLoaded", function () {
   // Боковое меню
@@ -155,3 +146,46 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // --- Отзывы: функционал вынесен в отдельный файл reviews.js ---
+
+// js/main.js
+let currentLanguage = 'ru'; // Эта переменная будет обновляться в settings.js
+const conversionRate = 0.013; // Пример: 1 руб. = 0.013 долларов
+
+// В функции renderProducts измените вывод цены:
+function renderProducts(products, page = 1) {
+  const productGrid = document.querySelector('.product-grid');
+  productGrid.innerHTML = '';
+
+  const startIndex = (page - 1) * productsPerPage;
+  const productsToShow = products.slice(startIndex, page * productsPerPage);
+
+  productsToShow.forEach(product => {
+    const productCard = document.createElement('article');
+    productCard.classList.add('product-card');
+    
+    // Обработка цены в зависимости от языка
+    let priceDisplay;
+    if (currentLanguage === 'en') {
+      // Предполагаем, что product.price содержит число в рублях, возможно, как строку с " руб."
+      const rub = parseFloat(product.price);
+      const dollars = (rub * conversionRate).toFixed(2);
+      priceDisplay = `Price: $${dollars}`;
+    } else {
+      priceDisplay = `Цена: ${product.price}`;
+    }
+    
+    productCard.innerHTML = `
+      <img src="${product.image}" alt="${product.name}">
+      <h2>${product.name}</h2>
+      <p>${product.description}</p>
+      <p class="price">${priceDisplay}</p>
+      <div class="actions">
+        <button class="add-to-cart" data-id="${product.id}">В корзину</button>
+        <button class="reviews" data-id="${product.id}" data-name="${product.name}">Отзывы</button>
+      </div>
+    `;
+    productGrid.appendChild(productCard);
+  });
+  
+  attachProductEventListeners();
+}
