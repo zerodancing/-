@@ -141,7 +141,7 @@ header {
   transform: scale(0.98);
 }
 
-/* Обеспечиваем, чтобы кнопки всегда располагались внизу карточки */
+/* Кнопки всегда внизу карточки */
 .product-card .actions {
   margin-top: auto;
 }
@@ -215,4 +215,10 @@ header {
 
 .close-menu:hover {
   color: #ccc;
+}
+
+/* Логотип в шапке */
+.site-logo img {
+  height: 40px;
+  transition: opacity 0.3s ease;
 }
