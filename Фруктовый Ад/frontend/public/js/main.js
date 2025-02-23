@@ -1,4 +1,5 @@
-// js/main.js
+// public/js/main.js
+
 const productsPerPage = 24;
 let currentPage = 1;
 let allProducts = [];
@@ -33,17 +34,17 @@ function renderProducts(products, page = 1) {
     }
     
     productCard.innerHTML = `
-  <img src="${product.image}" alt="${product.name}">
-  <h2>${product.name}</h2>
-  <p>${product.description}</p>
-  <p class="price">${priceDisplay}</p>
-  <div class="actions">
-    <button class="add-to-cart" data-id="${product.id}">${LanguageManager.getTranslation('main', 'addToCart')}</button>
-    <button class="reviews" data-id="${product.id}" data-name="${product.name}">
-      ${LanguageManager.getTranslation('main', 'reviews')}
-    </button>
-  </div>
-`;
+      <img src="${product.image}" alt="${product.name}">
+      <h2>${product.name}</h2>
+      <p>${product.description}</p>
+      <p class="price">${priceDisplay}</p>
+      <div class="actions">
+        <button class="add-to-cart" data-id="${product.id}">${LanguageManager.getTranslation('main', 'addToCart')}</button>
+        <button class="reviews" data-id="${product.id}" data-name="${product.name}">
+          ${LanguageManager.getTranslation('main', 'reviews')}
+        </button>
+      </div>
+    `;
     productGrid.appendChild(productCard);
   });
   
@@ -84,21 +85,67 @@ function updateActivePagination() {
 }
 
 function attachProductEventListeners() {
+  // Обработчик для кнопок "В корзину"
   document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', function() {
       const productId = this.dataset.id;
-      console.log("Добавлен в корзину товар с id: " + productId);
-      // Реализуйте логику добавления в корзину
+      const product = allProducts.find(p => p.id == productId);
+      if (product) {
+        addToCart(product);
+      }
     });
   });
   
+  // Обработчик для кнопок "Отзывы"
   document.querySelectorAll('.reviews').forEach(button => {
     button.addEventListener('click', function() {
       const productId = this.dataset.id;
       const productName = this.dataset.name;
-      openReviewsModal(productId, productName);
+      // Функция openReviewsModal определена в reviews.js и доступна как window.openReviewsModal
+      if (typeof openReviewsModal === 'function') {
+        openReviewsModal(productId, productName);
+      } else {
+        console.error('openReviewsModal не определена!');
+      }
     });
   });
+}
+
+/**
+ * Добавление товара в корзину (localStorage)
+ */
+function addToCart(product) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  
+  // Проверяем, есть ли товар в корзине
+  const existingProduct = cart.find(item => item.id === product.id);
+  if (existingProduct) {
+    existingProduct.quantity += 1;
+  } else {
+    product.quantity = 1;
+    cart.push(product);
+  }
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+  showNotification("Товар добавлен в корзину!");
+}
+
+function showNotification(message) {
+  const notificationContainer = document.getElementById("notifications");
+  const notification = document.createElement("div");
+  notification.className = "notification";
+  notification.textContent = message;
+
+  notificationContainer.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.classList.add("show");
+  }, 10);
+  
+  setTimeout(() => {
+    notification.classList.remove("show");
+    setTimeout(() => notification.remove(), 500);
+  }, 2000);
 }
 
 /**
@@ -133,35 +180,22 @@ fetch('data/products.json')
     console.error('Ошибка при загрузке товаров:', error);
   });
 
-// Обработчики бокового меню и модальных окон
+// Обработчики для модального окна отзывов
 document.addEventListener("DOMContentLoaded", function () {
-  const menuBtn = document.getElementById("menu-btn");
-  const sidebar = document.getElementById("sidebar");
-  const closeMenuBtn = document.querySelector("#sidebar .close-menu");
-
-  closeMenuBtn.addEventListener("click", function () {
-    sidebar.classList.remove("active");
-  });
-
-  menuBtn.addEventListener("click", function () {
-    sidebar.classList.toggle("active");
-  });
-
-  document.addEventListener("click", function (event) {
-    if (!sidebar.contains(event.target) && !menuBtn.contains(event.target)) {
-      sidebar.classList.remove("active");
-    }
-  });
-
   const modal = document.getElementById('reviews-modal');
-  const closeBtn = modal.querySelector('.close');
-  closeBtn.addEventListener('click', function() {
-    modal.style.display = 'none';
-  });
-
-  window.addEventListener('click', function(event) {
-    if (event.target === modal) {
-      modal.style.display = 'none';
+  if (modal) {
+    // Закрытие модального окна при клике на крестик
+    const closeBtn = modal.querySelector('.close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+      });
     }
-  });
+    // Закрытие модального окна при клике вне его области
+    window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  }
 });
