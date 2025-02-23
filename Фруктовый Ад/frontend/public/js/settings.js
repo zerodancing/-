@@ -12,9 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 
-  /**
-   * Обновляет логотип в шапке в зависимости от текущего языка и темы.
-   */
   function updateLogo() {
     const logoImg = document.getElementById('site-logo');
     if (!logoImg) return;
@@ -23,9 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
     logoImg.src = logoMapping[lang][theme];
   }
 
-  /**
-   * Открывает модальное окно настроек, позиционируя его относительно кнопки.
-   */
   function openSettingsModal() {
     const settingsBtn = document.querySelector('.settings');
     const modal = document.getElementById('settings-modal');
@@ -40,22 +34,40 @@ document.addEventListener('DOMContentLoaded', function() {
     modal.style.top = (rect.bottom + window.scrollY + 5) + 'px';
     modal.style.left = leftPos + 'px';
     modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
   }
 
   function closeSettingsModal() {
     const modal = document.getElementById('settings-modal');
     if (!modal) return;
     modal.classList.remove('show');
+    document.body.style.overflow = '';
   }
 
-  // Обработчики открытия/закрытия модального окна настроек
-  const settingsElem = document.querySelector('.settings');
-  if (settingsElem) {
-    settingsElem.addEventListener('click', function(e) {
-      e.stopPropagation();
-      openSettingsModal();
-    });
+  // Инициализация обработчика для кнопки настроек,
+  // которая находится в шапке и может загружаться динамически
+  function initHeaderSettings() {
+    const settingsElem = document.querySelector('.settings');
+    if (settingsElem) {
+      // Чтобы не навесить несколько обработчиков, можно удалить старый (если он был)
+      settingsElem.removeEventListener('click', headerSettingsHandler);
+      settingsElem.addEventListener('click', headerSettingsHandler);
+    }
   }
+
+  function headerSettingsHandler(e) {
+    e.stopPropagation();
+    openSettingsModal();
+  }
+
+  // Если шапка уже есть – инициализируем, иначе ждём событие "headerLoaded"
+  if (document.querySelector('.settings')) {
+    initHeaderSettings();
+  } else {
+    document.addEventListener('headerLoaded', initHeaderSettings);
+  }
+
+  // Обработчики закрытия модального окна настроек
   const settingsModal = document.getElementById('settings-modal');
   if (settingsModal) {
     const closeSettingsElem = settingsModal.querySelector('.close-settings');
@@ -79,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
     languageSelect.addEventListener('change', function() {
       LanguageManager.setLanguage(this.value);
       updateLogo();
-      // Если нужно, обновляем товары для выбранного языка
       if (typeof loadProductsForLanguage === 'function') {
         loadProductsForLanguage(this.value);
       }
@@ -100,7 +111,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Обновление переводов в модальном окне настроек
   document.addEventListener('languageChanged', function(e) {
     updateSettingsModal(e.detail);
   });
@@ -109,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /**
- * Обновляет тексты в модальном окне настроек согласно выбранному языку.
+ * Обновляет тексты в модальном окне настроек согласно выбранному языком.
  */
 function updateSettingsModal(lang) {
   const modal = document.getElementById('settings-modal');
@@ -128,7 +138,6 @@ function updateSettingsModal(lang) {
   const themeLabelEl = modal.querySelector('label[for="theme-select"]');
   if (themeLabelEl) themeLabelEl.textContent = themeLabel;
 
-  // Обновляем опции селектов
   const languageSelect = modal.querySelector('#language-select');
   if (languageSelect && languageSelect.options.length >= 2) {
     languageSelect.options[0].textContent = LanguageManager.getTranslation('settings', 'languageOptions')[0];
