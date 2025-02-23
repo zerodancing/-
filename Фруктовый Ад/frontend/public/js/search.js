@@ -49,43 +49,6 @@ function selectSuggestion(index, text) {
   performSearch(text.toLowerCase());
 }
 
-document.querySelector('.search-bar input').addEventListener('input', function (e) {
-  const query = e.target.value.toLowerCase();
-  updateSearchSuggestions(query);
-});
-
-document.querySelector('.search-bar input').addEventListener('keydown', function (e) {
-  const suggestionsContainer = document.getElementById('search-suggestions');
-  const items = suggestionsContainer.querySelectorAll('li');
-  
-  if (e.key === "ArrowDown") {
-    if (items.length > 0) {
-      currentSuggestionIndex = (currentSuggestionIndex + 1) % items.length;
-      highlightSuggestion(currentSuggestionIndex);
-    }
-    e.preventDefault();
-  } else if (e.key === "ArrowUp") {
-    if (items.length > 0) {
-      currentSuggestionIndex = (currentSuggestionIndex - 1 + items.length) % items.length;
-      highlightSuggestion(currentSuggestionIndex);
-    }
-    e.preventDefault();
-  } else if (e.key === "Enter") {
-    e.preventDefault();
-    if (currentSuggestionIndex >= 0 && items.length > 0) {
-      const selectedText = items[currentSuggestionIndex].textContent;
-      selectSuggestion(currentSuggestionIndex, selectedText);
-    } else {
-      performSearch(e.target.value.toLowerCase());
-    }
-  }
-});
-
-document.querySelector('.search-btn').addEventListener('click', function () {
-  const query = document.querySelector('.search-bar input').value.toLowerCase();
-  performSearch(query);
-});
-
 function performSearch(query) {
   filteredProducts = allProducts.filter(product =>
     product.name.toLowerCase().includes(query)
@@ -93,6 +56,69 @@ function performSearch(query) {
   currentPage = 1;
   renderProducts(filteredProducts, currentPage);
   renderPagination(filteredProducts);
+}
+
+// Функция инициализации обработчиков для элементов поиска в шапке
+function initSearch() {
+  const searchInput = document.querySelector('.search-bar input');
+  const searchBtn = document.querySelector('.search-btn');
+  if (!searchInput) return;
+
+  searchInput.addEventListener('input', function (e) {
+    const query = e.target.value.toLowerCase();
+    updateSearchSuggestions(query);
+  });
+
+  searchInput.addEventListener('keydown', function (e) {
+    const suggestionsContainer = document.getElementById('search-suggestions');
+    const items = suggestionsContainer.querySelectorAll('li');
+
+    if (e.key === "ArrowDown") {
+      if (items.length > 0) {
+        currentSuggestionIndex = (currentSuggestionIndex + 1) % items.length;
+        highlightSuggestion(currentSuggestionIndex);
+      }
+      e.preventDefault();
+    } else if (e.key === "ArrowUp") {
+      if (items.length > 0) {
+        currentSuggestionIndex = (currentSuggestionIndex - 1 + items.length) % items.length;
+        highlightSuggestion(currentSuggestionIndex);
+      }
+      e.preventDefault();
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      if (currentSuggestionIndex >= 0 && items.length > 0) {
+        const selectedText = items[currentSuggestionIndex].textContent;
+        selectSuggestion(currentSuggestionIndex, selectedText);
+      } else {
+        performSearch(e.target.value.toLowerCase());
+      }
+    }
+  });
+
+  if (searchBtn) {
+    searchBtn.addEventListener('click', function () {
+      const query = searchInput.value.toLowerCase();
+      performSearch(query);
+    });
+  }
+}
+
+// Если элемент уже существует, инициализируем, иначе ждём событие "headerLoaded"
+if (document.readyState !== 'loading') {
+  if (document.querySelector('.search-bar input')) {
+    initSearch();
+  } else {
+    document.addEventListener('headerLoaded', initSearch);
+  }
+} else {
+  document.addEventListener('DOMContentLoaded', function () {
+    if (document.querySelector('.search-bar input')) {
+      initSearch();
+    } else {
+      document.addEventListener('headerLoaded', initSearch);
+    }
+  });
 }
 
 // При загрузке устанавливаем placeholder с переводом
