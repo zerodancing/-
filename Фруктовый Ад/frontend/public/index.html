@@ -11,22 +11,12 @@
   <link rel="stylesheet" href="css/demonic.css" />
 </head>
 <body data-lang="ru">
-  <!-- Шапка сайта (header) -->
-  <header>
-    <div class="menu-icon" id="menu-btn">☰</div>
-    <div class="site-logo">
-      <img id="site-logo" src="images/logo_ru.png" alt="Фруктовый Ад" style="height: 40px;" />
-    </div>
-    <div class="search-bar" style="position: relative;">
-      <input type="text" placeholder="Поиск" />
-      <button class="search-btn">🔍</button>
-      <!-- Контейнер для подсказок поиска -->
-      <div id="search-suggestions"></div>
-    </div>
-    <div class="auth"><span>👤</span></div>
-    <div class="settings"><span>⚙️</span></div>
-  </header>
+  <!-- Контейнер для шапки (подгружается через fetch) -->
+  <div id="header-container"></div>
 
+  <!-- Контейнер для уведомлений -->
+  <div id="notifications"></div>
+  
   <!-- Боковое меню -->
   <nav id="sidebar">
     <span class="close-menu">&times;</span>
@@ -98,14 +88,12 @@
     </div>
   </div>
 
-  <!-- Нотификация -->
-  <div id="notification" class="notification"></div>
-
   <!-- Скрипты: важно, чтобы language.js загружался первым -->
   <script src="js/language.js"></script>
   <script src="js/settings.js"></script>
   <script src="js/search.js"></script>
   <script src="js/reviews.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/header.js"></script>
 </body>
 </html>
