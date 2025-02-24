@@ -24,22 +24,7 @@
     </ul>
   </nav>
 
-  <!-- Основной контент страницы чат-бота -->
-  <main>
-    <section class="chat-section">
-      <h1>Чат-бот</h1>
-      <div class="chat-window">
-        <div class="chat-message bot">Привет! Чем могу помочь?</div>
-        <!-- Здесь будут добавляться сообщения чата -->
-      </div>
-      <form id="chat-form">
-        <input type="text" id="chat-input" placeholder="Введите сообщение..." autocomplete="off" />
-        <button type="submit">Отправить</button>
-      </form>
-    </section>
-  </main>
-
-  <!-- Модальное окно настроек (аналогично index.html) -->
+  <!-- Модальное окно настроек -->
   <div id="settings-modal" class="settings-modal">
     <div class="settings-content">
       <span class="close-settings">&times;</span>
@@ -60,14 +45,29 @@
       </div>
     </div>
   </div>
+  
+  <!-- Контейнер уведомлений -->
+  <div id="notifications"></div>
+  
+  <!-- Основной контент страницы чат-бота -->
+  <main>
+    <section class="chat-section">
+      <h1>Чат-бот</h1>
+      <div class="chat-window">
+        <div class="chat-message bot">Привет! Чем могу помочь?</div>
+        <!-- Здесь будут добавляться сообщения -->
+      </div>
+      <form id="chat-form">
+        <input type="text" id="chat-input" placeholder="Введите сообщение..." autocomplete="off" />
+        <button type="submit">Отправить</button>
+      </form>
+    </section>
+  </main>
 
-  <!-- Нотификация -->
-  <div id="notification" class="notification"></div>
-
-  <!-- Скрипты -->
+  <!-- Скрипты: порядок подключения важен -->
   <script src="js/language.js"></script>
+  <script src="js/header.js"></script>
   <script src="js/settings.js"></script>
   <script src="js/chat.js"></script>
-  <script src="js/header.js"></script>
 </body>
 </html>
