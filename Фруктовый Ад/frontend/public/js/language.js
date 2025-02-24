@@ -1,4 +1,3 @@
-// js/language.js
 const LanguageManager = (function() {
   let currentLanguage = 'ru';
 
@@ -80,13 +79,86 @@ const LanguageManager = (function() {
         about: "About us",
         help: "Help"
       }
+    },
+    account: {
+      ru: {
+        loginTitle: "Вход в аккаунт",
+        usernamePlaceholder: "Имя пользователя",
+        passwordPlaceholder: "Пароль",
+        loginButton: "Войти",
+        welcome: "Добро пожаловать, {username}!",
+        logoutButton: "Выйти"
+      },
+      en: {
+        loginTitle: "Account Login",
+        usernamePlaceholder: "Username",
+        passwordPlaceholder: "Password",
+        loginButton: "Login",
+        welcome: "Welcome, {username}!",
+        logoutButton: "Logout"
+      }
+    },
+    about: {
+      ru: {
+        title: "О нас",
+        teamTitle: "Наша команда",
+        description: "Над этим сайтом работает наша команда из 4 человек:",
+        members: {
+          alexander: {
+            name: "Александр Трубин",
+            role: "Разработка ТЗ и сайта",
+            description: "Я отвечаю за техническое задание и разработку сайта."
+          },
+          kostya: {
+            name: "Почикаев Костя",
+            role: "Разработчик",
+            description: "Разрабатывает отдельные разделы сайта."
+          },
+          danil: {
+            name: "Шаталов Данил",
+            role: "Дизайнер макета",
+            description: "Создает макет сайта."
+          },
+          farah: {
+            name: "Эшматова Фарахноз",
+            role: "Презентатор",
+            description: "Готовит презентацию сайта."
+          }
+        }
+      },
+      en: {
+        title: "About Us",
+        teamTitle: "Our Team",
+        description: "Our website is developed by a team of 4 people:",
+        members: {
+          alexander: {
+            name: "Alexander Trubin",
+            role: "Technical Assignment & Web Development",
+            description: "I handle the technical assignment and website development."
+          },
+          kostya: {
+            name: "Kostya Pochikaev",
+            role: "Developer",
+            description: "Develops various sections of the website."
+          },
+          danil: {
+            name: "Danil Shatalov",
+            role: "Layout Designer",
+            description: "Designs the website layout."
+          },
+          farah: {
+            name: "Farah Eshmatova",
+            role: "Presentation Specialist",
+            description: "Creates the website presentation."
+          }
+        }
+      }
     }
   };
 
   function setLanguage(lang) {
     currentLanguage = lang;
     document.body.setAttribute('data-lang', lang);
-    // Оповещаем все модули о смене языка
     document.dispatchEvent(new CustomEvent('languageChanged', { detail: lang }));
   }
 
@@ -106,7 +178,6 @@ const LanguageManager = (function() {
     return text;
   }
 
-  // Обновление статических элементов с data-translation (например, бокового меню)
   function updateStaticTranslations() {
     document.querySelectorAll('[data-translation]').forEach(elem => {
       const keyPath = elem.getAttribute('data-translation');
@@ -118,7 +189,6 @@ const LanguageManager = (function() {
     });
   }
 
-  // Обновляем статические переводы при смене языка
   document.addEventListener('languageChanged', function() {
     updateStaticTranslations();
   });
