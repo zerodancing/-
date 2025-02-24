@@ -1,65 +1,71 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-translation="about.title">О нас - Фруктовый Ад</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/about.css" />
-  <link rel="stylesheet" href="css/settings.css" />
-  <link rel="stylesheet" href="css/demonic.css" />
-</head>
-<body data-lang="ru">
-  <!-- Контейнер для шапки (подгружается через header.js) -->
-  <div id="header-container"></div>
-  
-  <!-- Боковое меню -->
-  <nav id="sidebar">
-    <span class="close-menu">&times;</span>
-    <ul>
-      <li><a href="index.html" data-translation="sidebar.home">Главная</a></li>
-      <li><a href="cart.html" data-translation="sidebar.cart">Корзина</a></li>
-      <li><a href="about.html" data-translation="sidebar.about">О нас</a></li>
-      <li><a href="chat.html" data-translation="sidebar.help">Помощь</a></li>
-    </ul>
-  </nav>
-  
-  <!-- Модальное окно настроек -->
-  <div id="settings-modal" class="settings-modal">
-    <div class="settings-content">
-      <span class="close-settings">&times;</span>
-      <h2 data-translation="settings.title">Настройки</h2>
-      <div class="setting-option">
-        <label for="language-select" data-translation="settings.languageLabel">Язык:</label>
-        <select id="language-select">
-          <option value="ru">Русский</option>
-          <option value="en">English</option>
-        </select>
-      </div>
-      <div class="setting-option">
-        <label for="theme-select" data-translation="settings.themeLabel">Тема:</label>
-        <select id="theme-select">
-          <option value="standard" data-translation="settings.themeOptions.0">Стандартная</option>
-          <option value="demonic" data-translation="settings.themeOptions.1">Демоническая</option>
-        </select>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Контейнер уведомлений -->
-  <div id="notifications"></div>
-  
-  <!-- Основной контент страницы "О нас" -->
-  <main>
-    <section id="about-section">
-      <!-- Контент заполнится динамически через about.js -->
-    </section>
-  </main>
+// js/about.js
 
-  <!-- Скрипты (порядок подключения важен) -->
-  <script src="js/language.js"></script>
-  <script src="js/header.js"></script>
-  <script src="js/settings.js"></script>
-  <script src="js/about.js"></script>
-</body>
-</html>
+document.addEventListener("DOMContentLoaded", function() {
+    renderAboutSection();
+    document.addEventListener('languageChanged', function() {
+      renderAboutSection();
+    });
+  });
+  
+  function renderAboutSection() {
+    const aboutSection = document.getElementById("about-section");
+    const title = LanguageManager.getTranslation("about", "title") || "О нас";
+    const description = LanguageManager.getTranslation("about", "description") || "Над этим сайтом работает наша команда из 4 человек:";
+    const teamTitle = LanguageManager.getTranslation("about", "teamTitle") || "Наша команда";
+  
+    // Определяем членов команды (ключи соответствуют переводам, если заданы)
+    const members = [
+      {
+        key: "alexander",
+        defaultName: "Александр Трубин",
+        defaultRole: "Разработка ТЗ и сайта",
+        defaultDesc: "Овечает за разработку ТЗ и сайта.",
+        img: "images/a.png"
+      },
+      {
+        key: "kostya",
+        defaultName: "Почикаев Костя",
+        defaultRole: "Разработчик",
+        defaultDesc: "Разрабатывает отдельные разделы сайта.",
+        img: "images/a.png"
+      },
+      {
+        key: "danil",
+        defaultName: "Шаталов Данил",
+        defaultRole: "Дизайнер макета",
+        defaultDesc: "Создает макет сайта.",
+        img: "images/a.png"
+      },
+      {
+        key: "farah",
+        defaultName: "Эшматова Фарахноз",
+        defaultRole: "Презентатор",
+        defaultDesc: "Готовит презентацию сайта.",
+        img: "images/a.png"
+      }
+    ];
+  
+    let membersHTML = '<div class="team-grid">';
+    members.forEach(member => {
+      const name = LanguageManager.getTranslation("about", "members." + member.key + ".name") || member.defaultName;
+      const role = LanguageManager.getTranslation("about", "members." + member.key + ".role") || member.defaultRole;
+      const desc = LanguageManager.getTranslation("about", "members." + member.key + ".description") || member.defaultDesc;
+      membersHTML += `
+        <div class="team-member">
+          <img src="${member.img}" alt="${name}">
+          <h2>${name}</h2>
+          <h3>${role}</h3>
+          <p>${desc}</p>
+        </div>
+      `;
+    });
+    membersHTML += '</div>';
+  
+    aboutSection.innerHTML = `
+      <h1>${title}</h1>
+      <p class="description">${description}</p>
+      <h2>${teamTitle}</h2>
+      ${membersHTML}
+    `;
+  }
+  
