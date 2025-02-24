@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
         key: "alexander",
         defaultName: "Александр Трубин",
         defaultRole: "Разработка ТЗ и сайта",
-        defaultDesc: "Я отвечаю за техническое задание и разработку сайта.",
+        defaultDesc: "Овечает за разработку ТЗ и сайта.",
         img: "images/a.png"
       },
       {
