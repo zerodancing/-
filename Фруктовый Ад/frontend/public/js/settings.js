@@ -1,6 +1,5 @@
 // js/settings.js
 document.addEventListener('DOMContentLoaded', function() {
-  // Сопоставление логотипов по языку и теме
   const logoMapping = {
     ru: {
       standard: 'images/logo_ru.png',
@@ -21,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function openSettingsModal() {
+    // Здесь ищем элемент с классом .settings (из шапки)
     const settingsBtn = document.querySelector('.settings');
     const modal = document.getElementById('settings-modal');
     if (!settingsBtn || !modal) return;
@@ -44,12 +44,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.style.overflow = '';
   }
 
-  // Инициализация обработчика для кнопки настроек,
-  // которая находится в шапке и может загружаться динамически
   function initHeaderSettings() {
     const settingsElem = document.querySelector('.settings');
     if (settingsElem) {
-      // Чтобы не навесить несколько обработчиков, можно удалить старый (если он был)
       settingsElem.removeEventListener('click', headerSettingsHandler);
       settingsElem.addEventListener('click', headerSettingsHandler);
     }
@@ -60,14 +57,12 @@ document.addEventListener('DOMContentLoaded', function() {
     openSettingsModal();
   }
 
-  // Если шапка уже есть – инициализируем, иначе ждём событие "headerLoaded"
   if (document.querySelector('.settings')) {
     initHeaderSettings();
   } else {
     document.addEventListener('headerLoaded', initHeaderSettings);
   }
 
-  // Обработчики закрытия модального окна настроек
   const settingsModal = document.getElementById('settings-modal');
   if (settingsModal) {
     const closeSettingsElem = settingsModal.querySelector('.close-settings');
@@ -85,7 +80,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Обработчик смены языка
   const languageSelect = document.getElementById('language-select');
   if (languageSelect) {
     languageSelect.addEventListener('change', function() {
@@ -97,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Обработчик смены темы
   const themeSelect = document.getElementById('theme-select');
   if (themeSelect) {
     themeSelect.addEventListener('change', function() {
@@ -118,9 +111,6 @@ document.addEventListener('DOMContentLoaded', function() {
   updateLogo();
 });
 
-/**
- * Обновляет тексты в модальном окне настроек согласно выбранному языком.
- */
 function updateSettingsModal(lang) {
   const modal = document.getElementById('settings-modal');
   if (!modal) return;
