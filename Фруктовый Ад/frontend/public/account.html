@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Аккаунт - Фруктовый Ад</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/account.css" />
+  <link rel="stylesheet" href="css/settings.css" />
+  <link rel="stylesheet" href="css/demonic.css" />
+</head>
+<body data-lang="ru">
+  <!-- Контейнер для шапки (подгружается через header.js) -->
+  <div id="header-container"></div>
+  
+  <!-- Боковое меню (нужно, чтобы кнопки бокового меню работали на странице аккаунта) -->
+  <nav id="sidebar">
+    <span class="close-menu">&times;</span>
+    <ul>
+      <li><a href="index.html" data-translation="sidebar.home">Главная</a></li>
+      <li><a href="cart.html" data-translation="sidebar.cart">Корзина</a></li>
+      <li><a href="about.html" data-translation="sidebar.about">О нас</a></li>
+      <li><a href="chat.html" data-translation="sidebar.help">Помощь</a></li>
+    </ul>
+  </nav>
+  
+  <!-- Модальное окно настроек (добавлено, чтобы кнопка настроек работала) -->
+  <div id="settings-modal" class="settings-modal">
+    <div class="settings-content">
+      <span class="close-settings">&times;</span>
+      <h2>Настройки</h2>
+      <div class="setting-option">
+        <label for="language-select">Язык:</label>
+        <select id="language-select">
+          <option value="ru">Русский</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+      <div class="setting-option">
+        <label for="theme-select">Тема:</label>
+        <select id="theme-select">
+          <option value="standard">Стандартная</option>
+          <option value="demonic">Демоническая</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Контейнер уведомлений -->
+  <div id="notifications"></div>
+  
+  <!-- Основной контент страницы аккаунта -->
+  <main>
+    <section id="account-section">
+      <!-- Контент подставляется через account.js -->
+    </section>
+  </main>
+
+  <!-- Скрипты: порядок подключения важен -->
+  <script src="js/language.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/account.js"></script>
+</body>
+</html>
